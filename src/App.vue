@@ -11,6 +11,7 @@
           :titleClasses="statusCard.titleClasses"
           :newTasks="statusCard.newTasks"
           :status="statusCard.status"
+          :tasks="filteredTasks(statusCard.status)"
         />
       </div>
       <!-- <div class="col-4">
@@ -77,11 +78,16 @@ export default {
       ],
     };
   },
-  computed: {
-    newTasks() {
-      return this.tasks.filter((task) => task.status === 0);
-    },
-  },
+  // computed: {
+  //   newTasks() {
+  //     return this.tasks.filter((task) => task.status === 0);
+  //   },
+  // },
+  methods: {
+    filteredTasks(status){
+      return this.tasks.filter((task) => task.status === status)
+    }
+  }
 };
 </script>
 
