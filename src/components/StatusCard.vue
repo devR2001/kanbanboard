@@ -4,7 +4,12 @@
       <h4>{{ title }}</h4>
     </div>
     <div class="card-body">
-      <TaskVue v-for="task in tasks" :key="task.id"/>
+      <TaskVue
+        v-for="task in tasks"
+        :key="task.id"
+        :task="task"
+        :alertColor="alertColor"
+      />
     </div>
     <div class="card-footer" v-if="newTasks">
       <NewTask />
@@ -29,6 +34,19 @@ export default {
     status: Number,
     newTasks: Boolean,
     tasks: Array,
+  },
+  computed: {
+    alertColor() {
+      switch (this.status) {
+        case 0:
+          return "secondary";
+        case 1:
+          return "primary";
+        case 2:
+          return "success";
+      }
+      return "danger"
+    },
   },
 };
 </script>
