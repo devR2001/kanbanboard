@@ -1,8 +1,17 @@
 <template>
   <div class="container mt-5">
     <div class="row">
-      <div class="col-4" v-for="statusCard in statusCards" :key="statusCard.status">
-        <StatusCard />
+      <div
+        class="col-4"
+        v-for="statusCard in statusCards"
+        :key="statusCard.status"
+      >
+        <StatusCard
+          :title="statusCard.title"
+          :titleClasses="statusCard.titleClasses"
+          :newTasks="statusCard.newTasks"
+          :status="statusCard.status"
+        />
       </div>
       <!-- <div class="col-4">
         <div class="card">
@@ -63,7 +72,7 @@ export default {
           title: "Erledigt",
           titleClasses: "bg-success text-white",
           newTasks: false,
-          status: 2
+          status: 2,
         },
       ],
     };
