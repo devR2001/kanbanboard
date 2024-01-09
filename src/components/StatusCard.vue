@@ -1,6 +1,6 @@
 <template>
           <div class="card">
-          <div class="card-header text-center bg-secondary text-white">
+          <div class="card-header text-center" :class="titleClasses">
             <h4>{{ title }}</h4>
           </div>
           <div class="card-body">
