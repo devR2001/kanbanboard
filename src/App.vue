@@ -1,17 +1,28 @@
 <template>
   <div class="container mt-5">
     <div class="row">
-      <div class="col-4" v-for="statusCard in statusCards" :key="statusCard.status">
-        <StatusCard :title="statusCard.title" :titleClasses="statusCard.titleClasses" :newTasks="statusCard.newTasks"
-          :status="statusCard.status" :tasks="filteredTasks(statusCard.status)" @new-task="addTask" />
+      <div
+        class="col-4"
+        v-for="statusCard in statusCards"
+        :key="statusCard.status"
+      >
+        <StatusCard
+          :title="statusCard.title"
+          :titleClasses="statusCard.titleClasses"
+          :newTasks="statusCard.newTasks"
+          :status="statusCard.status"
+          :tasks="filteredTasks(statusCard.status)"
+          @new-task="addTask"
+          @status-updated="updateStatus"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import StatusCard from "./components/StatusCard.vue";
-import logger from "./mixins/logger"
+import StatusCard from "./components/StatusCard";
+import logger from "./mixins/logger";
 
 export default {
   name: "App",
@@ -22,7 +33,7 @@ export default {
   provide() {
     return {
       maxNumberOfChars: 255,
-    }
+    };
   },
   data() {
     return {
@@ -60,20 +71,31 @@ export default {
       ],
     };
   },
-  // computed: {
-  //   newTasks() {
-  //     return this.tasks.filter((task) => task.status === 0);
-  //   },
-  // },
+  /*   computed: {
+    newTasks() {
+      return this.tasks.filter((task) => task.status === 0);
+    },
+  }, */
+  /*   mounted() {
+    console.log("App-Component ist vollständig bereit.");
+  }, */
   methods: {
     filteredTasks(status) {
-      return this.tasks.filter((task) => task.status === status)
+      return this.tasks.filter((task) => task.status === status);
     },
     addTask(task) {
-      task.id = Math.random()
-      this.tasks.push(task)
-    }
-  }
+      task.id = Math.random();
+      this.tasks.push(task);
+      this.writeLogEntry("Neue Aufgabe hinzugefügt.");
+    },
+    updateStatus(statusDO) {
+      console.log(statusDO);
+      const task = this.tasks.find(
+        (task) => task.id === Number(statusDO.taskId)
+      );
+      task.status = statusDO.newStatus;
+    },
+  },
 };
 </script>
 

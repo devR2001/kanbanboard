@@ -1,15 +1,16 @@
 export default {
   mounted(el, binding) {
-    el.focus();
+    // console.log(binding);
     if ("color" in binding.value) {
-      el.addEventListener("focus", function () {
+      el.addEventListener("focus", function() {
         this.style.borderColor = binding.value.color;
-        this.style.borderWith = "4px";
+        this.style.borderWidth = "4px";
       });
-      el.addEventListener("focusout", function () {
+      el.addEventListener("focusout", function() {
         this.style.borderColor = "";
-        this.style.borderWith = "1px";
-      });
+        this.style.borderWidth = "1px";          
+      })
     }
+    el.focus();
   },
 };

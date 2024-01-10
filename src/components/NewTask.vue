@@ -1,9 +1,17 @@
 <template>
   <div>
-    <input type="text" class="form-control" placeholder="Neue Aufgabe" v-model="content" v-focus="{ color: 'green' }" />
-    <small>Noch {{ numberOfCharsleft }} Zeichen erlaubt.</small>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Neue Aufgabe"
+      v-model="content"
+      v-focus="{ color: 'green' }"
+    />
+    <small>Noch {{ numberOfCharsLeft }} Zeichen erlaubt.</small>
     <div class="d-grid my-2">
-      <button class="btn btn-secondary" @[mode]="submitTask()">Eintragen</button>
+      <button class="btn btn-secondary" @[mode]="submitTask()">
+        Eintragen
+      </button>
     </div>
     <teleport to="#settings">
       <select class="form-select" v-model="mode">
@@ -18,37 +26,38 @@
 export default {
   name: "NewTask",
   inject: ["maxNumberOfChars"],
-  // emits: ["new-tasks"],
+  /*   emits: ["new-tasks"], */
   emits: {
     "new-task": (task) => {
-      if (task.contend === "") {
-        console.warn("NewTaskComponent: Der Content sollte nicht leer sein!")
-        return false
+      if (task.content === "") {
+        console.warn("NewTaskComponent: Der Content sollte nicht leer sein.");
+        return false;
       }
-      return true
-    }
+      return true;
+    },
   },
   data() {
     return {
       content: "",
-      mode: "click"
-    }
+      mode: "click",
+    };
   },
   computed: {
-    numberOfCharsleft() {
-      return this.maxNumberOfChars - this.content.length
-    }
+    numberOfCharsLeft() {
+      return this.maxNumberOfChars - this.content.length;
+    },
   },
   methods: {
     submitTask() {
       this.$emit("new-task", {
         // Payload
         content: this.content,
-      })
-      this.content = ""
-    }
-  }
+      });
+      this.content = "";
+    },
+  },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

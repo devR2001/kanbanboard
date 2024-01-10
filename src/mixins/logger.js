@@ -1,7 +1,7 @@
 export default {
   mounted() {
     this.writeLogEntry(
-      `${this.$options.name}-Component ist nun vollsändig geladen.`
+      `${this.$options.name}-Component ist nun vollständig geladen.`
     );
   },
   methods: {

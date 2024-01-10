@@ -1,10 +1,17 @@
 <template>
-  <div class="card">
+  <div class="card" @drop="onDrop($event)" @dragover.prevent @dragenter.prevent>
     <div class="card-header text-center" :class="titleClasses">
       <h4>{{ title }}</h4>
     </div>
     <div class="card-body">
-      <TaskVue v-for="task in tasks" :key="task.id" :task="task" :alertColor="alertColor" />
+      <Task
+        v-for="task in tasks"
+        :key="task.id"
+        :task="task"
+        :alertColor="alertColor"
+        draggable="true"
+        @dragstart="startDrag($event, task)"
+      />
     </div>
     <div class="card-footer" v-if="newTasks">
       <NewTask @new-task="newTask" />
@@ -13,14 +20,13 @@
 </template>
 
 <script>
-import NewTask from "./NewTask.vue";
-import TaskVue from "./TaskVue.vue";
+import Task from "./Task";
+import NewTask from "./NewTask";
 
-// eslint-disable-next-line vue/multi-word-component-names
 export default {
   name: "StatusCard",
   components: {
-    TaskVue,
+    Task,
     NewTask,
   },
   props: {
@@ -33,10 +39,21 @@ export default {
   emits: {
     "new-task": (task) => {
       if ("status" in task === false) {
-        console.warn("StatusCardComponent: Jede Aufgabe muss ein Status-Attribut haben!")
-        return false
+        console.warn(
+          "StatusCardComponent: Jede Aufgabe muss ein Status-Attribut haben."
+        );
+        return false;
       }
-      return true
+      return true;
+    },
+    "status-updated": (statusDO) => {
+      if ("newStatus" in statusDO === false) {
+        console.warn(
+          "StatusCardComponent: Jede Aufgabe muss ein Status-Attribut haben."
+        );
+        return false;
+      }
+      return true;
     },
   },
   computed: {
@@ -49,16 +66,26 @@ export default {
         case 2:
           return "success";
       }
-      return "danger"
+      return "danger";
     },
   },
   methods: {
     newTask(task) {
-      task.status = this.status
-      this.$emit("new-task", task)
-    }
-  }
+      task.status = this.status;
+      this.$emit("new-task", task);
+    },
+    startDrag(event, task) {
+      event.dataTransfer.dropEffect = "move";
+      event.dataTransfer.effectAllowed = "move";
+      event.dataTransfer.setData("taskId", task.id);
+    },
+    onDrop(event) {
+      const taskId = event.dataTransfer.getData("taskId");
+      this.$emit("status-updated", { taskId: taskId, newStatus: this.status });
+    },
+  },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>
