@@ -3,8 +3,12 @@
     <input type="text" class="form-control" placeholder="Neue Aufgabe" v-model="content" v-focus="{ color: 'green' }" />
     <small>Noch {{ numberOfCharsleft }} Zeichen erlaubt.</small>
     <div class="d-grid my-2">
-      <button class="btn btn-secondary" @click="submitTask()">Eintragen</button>
+      <button class="btn btn-secondary" @[mode]="submitTask()">Eintragen</button>
     </div>
+    <select class="form-select" v-model="mode">
+      <option value="click">Einfacher Klick</option>
+      <option value="dblclick">Doppelklick</option>
+    </select>
   </div>
 </template>
 
@@ -24,7 +28,8 @@ export default {
   },
   data() {
     return {
-      content: ""
+      content: "",
+      mode: "click"
     }
   },
   computed: {
