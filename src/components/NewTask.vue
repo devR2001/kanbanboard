@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input type="text" class="form-control" placeholder="Neue Aufgabe" v-model="content" />
+    <input type="text" class="form-control" placeholder="Neue Aufgabe" v-model="content" v-focus="{ color: 'green' }" />
     <small>Noch {{ numberOfCharsleft }} Zeichen erlaubt.</small>
     <div class="d-grid my-2">
       <button class="btn btn-secondary" @click="submitTask()">Eintragen</button>
