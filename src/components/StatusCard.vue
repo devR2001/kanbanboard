@@ -30,6 +30,15 @@ export default {
     newTasks: Boolean,
     tasks: Array,
   },
+  emits: {
+    "new-task": (task) => {
+      if ("status" in task === false) {
+        console.warn("StatusCardComponent: Jede Aufgabe muss ein Status-Attribut haben!")
+        return false
+      }
+      return true
+    },
+  },
   computed: {
     alertColor() {
       switch (this.status) {
@@ -45,9 +54,8 @@ export default {
   },
   methods: {
     newTask(task) {
-      console.log(task);
-      // Nur der Urheber darf Daten verändern
-      // In diesem Fall wäre das die App.vue
+      task.status = this.status
+      this.$emit("new-task", task)
     }
   }
 };
