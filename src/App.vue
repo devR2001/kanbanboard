@@ -11,9 +11,11 @@
 
 <script>
 import StatusCard from "./components/StatusCard.vue";
+import logger from "./mixins/logger"
 
 export default {
   name: "App",
+  mixins: [logger],
   components: {
     StatusCard,
   },
