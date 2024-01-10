@@ -17,6 +17,11 @@ export default {
   components: {
     StatusCard,
   },
+  provide() {
+    return {
+      maxNumberOfChars: 255,
+    }
+  },
   data() {
     return {
       tasks: [
