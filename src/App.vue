@@ -5,22 +5,6 @@
         <StatusCard :title="statusCard.title" :titleClasses="statusCard.titleClasses" :newTasks="statusCard.newTasks"
           :status="statusCard.status" :tasks="filteredTasks(statusCard.status)" @new-task="addTask" />
       </div>
-      <!-- <div class="col-4">
-        <div class="card">
-          <div class="card-header text-center bg-primary text-white">
-            <h4>In Bearbeitung</h4>
-          </div>
-          <div class="card-body"></div>
-        </div>
-      </div>
-      <div class="col-4">
-        <div class="card">
-          <div class="card-header text-center bg-success text-white">
-            <h4>Erledigt</h4>
-          </div>
-          <div class="card-body"></div>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
