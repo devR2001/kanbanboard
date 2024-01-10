@@ -4,15 +4,10 @@
       <h4>{{ title }}</h4>
     </div>
     <div class="card-body">
-      <TaskVue
-        v-for="task in tasks"
-        :key="task.id"
-        :task="task"
-        :alertColor="alertColor"
-      />
+      <TaskVue v-for="task in tasks" :key="task.id" :task="task" :alertColor="alertColor" />
     </div>
     <div class="card-footer" v-if="newTasks">
-      <NewTask />
+      <NewTask @new-task="newTask" />
     </div>
   </div>
 </template>
@@ -48,6 +43,13 @@ export default {
       return "danger"
     },
   },
+  methods: {
+    newTask(task) {
+      console.log(task);
+      // Nur der Urheber darf Daten verändern
+      // In diesem Fall wäre das die App.vue
+    }
+  }
 };
 </script>
 
